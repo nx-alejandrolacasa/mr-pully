@@ -1,0 +1,333 @@
+<!doctype html>
+<!--
+  1280×800 store screenshot mock with made-up data. The popup uses the
+  extension's own styles.css and markup; the browser frame around it is fake.
+  Open in a browser, set the viewport to 1280×800 (DevTools device toolbar)
+  and capture a screenshot. Emulate prefers-color-scheme: dark for a dark one.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mr. Pully — store screenshot</title>
+    <link rel="stylesheet" href="../../packages/shared/assets/styles.css" />
+    <style>
+      :root {
+        --frame: #dee1e6;
+        --frame-fg: #3c4043;
+        --tab-active: #ffffff;
+        --omnibox: #f1f3f4;
+        --group: #5f6368;
+        --group-fg: #ffffff;
+        --page: #f6f8fa;
+        --caption: #1f2328;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --frame: #202124;
+          --frame-fg: #e8eaed;
+          --tab-active: #35363a;
+          --omnibox: #282a2d;
+          --group: #dadce0;
+          --group-fg: #202124;
+          --page: #0d1117;
+          --caption: #e6edf3;
+        }
+      }
+
+      html,
+      body {
+        width: 1280px;
+        height: 800px;
+        overflow: hidden;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        background: var(--frame);
+      }
+
+      .mock-tabs {
+        display: flex;
+        align-items: flex-end;
+        gap: 2px;
+        height: 42px;
+        padding: 0 8px 0 12px;
+        color: var(--frame-fg);
+        font-size: 12px;
+      }
+
+      .mock-lights {
+        display: flex;
+        gap: 8px;
+        align-self: center;
+        margin-right: 14px;
+      }
+
+      .mock-lights span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ff5f57;
+      }
+
+      .mock-lights span:nth-child(2) {
+        background: #febc2e;
+      }
+
+      .mock-lights span:nth-child(3) {
+        background: #28c840;
+      }
+
+      .mock-chip {
+        margin: 0 4px 7px;
+        padding: 2px 9px;
+        border-radius: 6px;
+        background: var(--group);
+        color: var(--group-fg);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .mock-tab {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 158px;
+        height: 34px;
+        padding: 0 12px;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .mock-tab.grouped {
+        box-shadow: inset 0 -2px var(--group);
+      }
+
+      .mock-tab.active {
+        background: var(--tab-active);
+        box-shadow: none;
+      }
+
+      .mock-tab span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .mock-favicon {
+        flex: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--frame-fg);
+        opacity: 0.8;
+      }
+
+      .mock-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        height: 42px;
+        padding: 0 14px;
+        background: var(--tab-active);
+        color: var(--frame-fg);
+      }
+
+      .mock-toolbar svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .mock-omnibox {
+        flex: 1;
+        padding: 6px 14px;
+        border-radius: 16px;
+        background: var(--omnibox);
+        font-size: 13px;
+      }
+
+      .mock-action {
+        position: relative;
+        display: flex;
+        padding: 5px;
+        border-radius: 50%;
+        background: var(--omnibox);
+      }
+
+      .mock-action img {
+        width: 18px;
+        height: 18px;
+      }
+
+      .mock-badge {
+        position: absolute;
+        right: -5px;
+        bottom: -3px;
+        padding: 0 4px;
+        border-radius: 7px;
+        background: #0969da;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 14px;
+      }
+
+      .mock-avatar {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #8250df;
+      }
+
+      .mock-page {
+        position: relative;
+        flex: 1;
+        background: var(--page);
+      }
+
+      .mock-caption {
+        position: absolute;
+        top: 150px;
+        left: 90px;
+        width: 560px;
+        color: var(--caption);
+      }
+
+      .mock-caption h2 {
+        margin: 0 0 18px;
+        font-size: 44px;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+      }
+
+      .mock-caption p {
+        margin: 0;
+        color: var(--fg-soft);
+        font-size: 19px;
+        line-height: 1.5;
+      }
+
+      .mock-popup {
+        position: absolute;
+        top: 6px;
+        right: 58px;
+        width: 420px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--bg);
+        box-shadow: 0 12px 40px rgb(0 0 0 / 0.22);
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mock-tabs" id="tabs">
+      <div class="mock-lights"><span></span><span></span><span></span></div>
+      <div class="mock-tab"><i class="mock-favicon"></i><span>Dashboard</span></div>
+      <div class="mock-chip">Pull requests</div>
+    </div>
+
+    <div class="mock-toolbar">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 5 8l5 5" /></svg>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 3 5 5-5 5" /></svg>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.25 8a5.25 5.25 0 1 1-1.54-3.71" /><path d="M12.25 1.75v3h-3" /></svg>
+      <div class="mock-omnibox" id="omnibox"></div>
+      <div class="mock-action">
+        <picture>
+          <source srcset="../../packages/shared/assets/icons/toolbar-light.svg" media="(prefers-color-scheme: dark)" />
+          <img src="../../packages/shared/assets/icons/toolbar-dark.svg" alt="" />
+        </picture>
+        <span class="mock-badge" id="badge"></span>
+      </div>
+      <div class="mock-avatar"></div>
+    </div>
+
+    <div class="mock-page">
+      <div class="mock-caption">
+        <h2>The pull requests that need you, as a live tab group.</h2>
+        <p>Review requests open in their own group and close once they're done. Everything else waits in a popup that mirrors GitHub's inbox.</p>
+      </div>
+
+      <div class="mock-popup">
+        <main>
+          <header class="top">
+            <h1>Inbox</h1>
+            <span class="muted">updated this minute</span>
+            <button type="button" class="icon" aria-label="Refresh"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.25 8a5.25 5.25 0 1 1-1.54-3.71"/><path d="M12.25 1.75v3h-3"/></svg></button>
+            <button type="button" class="icon" aria-label="Settings"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.65 2.98 L7.04 1.17 L8.96 1.17 L9.35 2.98 L10.60 3.50 L12.15 2.49 L13.51 3.85 L12.50 5.40 L13.02 6.65 L14.83 7.04 L14.83 8.96 L13.02 9.35 L12.50 10.60 L13.51 12.15 L12.15 13.51 L10.60 12.50 L9.35 13.02 L8.96 14.83 L7.04 14.83 L6.65 13.02 L5.40 12.50 L3.85 13.51 L2.49 12.15 L3.50 10.60 L2.98 9.35 L1.17 8.96 L1.17 7.04 L2.98 6.65 L3.50 5.40 L2.49 3.85 L3.85 2.49 L5.40 3.50 Z"/><circle cx="8" cy="8" r="2.25"/></svg></button>
+          </header>
+          <div id="sections"></div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const SECTIONS = [
+        { title: "Needs your review", badge: true, group: true, prs: [
+          { title: "Add rate limiting to the public API", repo: "acme/api", number: 412, author: "mara-k", updated: "12 minutes ago", checks: ["success", 14, 14], comments: 6 },
+          { title: "Migrate button styles to design tokens", repo: "acme/design-system", number: 88, author: "jdiaz", updated: "1 hour ago", checks: ["pending", 9, 12] },
+          { title: "Fix timezone drift in weekly report export", repo: "acme/reports", number: 231, author: "priya-s", updated: "3 hours ago", checks: ["success", 7, 7], comments: 2 },
+        ] },
+        { title: "Needs your teams' review", badge: true, group: true, prs: [
+          { title: "Bump Node to 22 in CI images", repo: "acme/infra", number: 57, author: "tomasz-w", updated: "yesterday", checks: ["success", 5, 5] },
+          { title: "Onboarding checklist: add SSO step", repo: "acme/web", number: 1093, author: "lena-h", updated: "2 days ago", checks: ["failure", 11, 12], comments: 4 },
+        ] },
+        { title: "Needs action", badge: true, prs: [
+          { title: "Cache GraphQL responses per viewer", repo: "acme/api", number: 405, author: "alex-dev", updated: "2 hours ago", label: ["changesRequested", "Changes requested"], checks: ["success", 18, 18], comments: 9 },
+        ] },
+        { title: "Ready to merge", badge: true, prs: [
+          { title: "Drop legacy v1 webhooks", repo: "acme/api", number: 398, author: "alex-dev", updated: "yesterday", label: ["readyToMerge", "Ready to merge"], checks: ["success", 18, 18] },
+        ] },
+      ];
+      const CHECK_ICONS = { success: "✓", failure: "✗", pending: "●" };
+
+      const el = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+      };
+
+      function renderPr(pr) {
+        const button = el("button", "pr");
+        const main = el("span", "pr-main");
+        main.append(el("span", "pr-title", pr.title), el("span", "pr-meta", `${pr.repo}#${pr.number} · ${pr.author} · updated ${pr.updated}`));
+        const side = el("span", "pr-side");
+        if (pr.label) side.append(el("span", `label label-${pr.label[0]}`, pr.label[1]));
+        const [state, passed, total] = pr.checks;
+        side.append(el("span", `checks checks-${state}`, `${CHECK_ICONS[state]} ${passed}/${total}`));
+        if (pr.comments) side.append(el("span", "comments", `💬 ${pr.comments}`));
+        button.append(main, side);
+        const row = el("li");
+        row.append(button);
+        return row;
+      }
+
+      function renderSection(title, count, rows, open = true) {
+        const details = el("details", "section");
+        details.open = open;
+        const summary = el("summary");
+        summary.append(el("span", "section-title", title), el("span", "count", String(count)));
+        const list = el("ul", "items");
+        list.append(...rows);
+        details.append(summary, list);
+        return details;
+      }
+
+      const sections = document.getElementById("sections");
+      for (const section of SECTIONS) sections.append(renderSection(section.title, section.prs.length, section.prs.map(renderPr)));
+      sections.append(renderSection("Hidden from group", 1, [], false));
+
+      const grouped = SECTIONS.filter((s) => s.group).flatMap((s) => s.prs);
+      const active = grouped[0];
+      const tabs = document.getElementById("tabs");
+      for (const pr of grouped) {
+        const tab = el("div", `mock-tab grouped${pr === active ? " active" : ""}`);
+        tab.append(el("i", "mock-favicon"), el("span", "", `${pr.title} by ${pr.author} · Pull Request #${pr.number} · ${pr.repo}`));
+        tabs.append(tab);
+      }
+      document.getElementById("omnibox").textContent = `github.com/${active.repo}/pull/${active.number}`;
+      document.getElementById("badge").textContent = SECTIONS.filter((s) => s.badge).reduce((sum, s) => sum + s.prs.length, 0);
+    </script>
+  </body>

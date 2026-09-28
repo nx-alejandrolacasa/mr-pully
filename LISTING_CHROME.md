@@ -91,7 +91,7 @@ English (United States)
 
 CWS requires **exactly 1280×800** or **640×400**. At least one screenshot is required; up to five may be uploaded.
 
-**Not captured yet.** Suggested shots (save to `packages/shared/assets/screenshots/` at 1280×800):
+`docs/screenshots/store-mock.html` is a 1280×800 mock with made-up data (tab group, badge and popup, using the popup's real styles); open it, set the viewport to 1280×800 and capture it, in light and dark. Other suggested shots (save to `packages/shared/assets/screenshots/` at 1280×800):
 
 1. The popup open with several sections filled, badge count visible
 2. The "Pull requests" tab group expanded with a few PR tabs
