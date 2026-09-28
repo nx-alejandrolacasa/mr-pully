@@ -35,6 +35,8 @@ jobs:
       - run: npm test
 
       - run: npm run build:${{ matrix.target }}
+        env:
+          NODE_ENV: production
 
       - run: npm run lint -w @mr-pully/${{ matrix.target }} --if-present
 
