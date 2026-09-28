@@ -1,0 +1,30 @@
+{
+  "name": "mr-pully-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "npm run dev:firefox",
+    "dev:firefox": "npm run dev -w @mr-pully/firefox",
+    "dev:chrome": "npm run dev -w @mr-pully/chrome",
+    "build": "npm run build -w @mr-pully/firefox && npm run build -w @mr-pully/chrome",
+    "build:firefox": "npm run build -w @mr-pully/firefox",
+    "build:chrome": "npm run build -w @mr-pully/chrome",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "node scripts/test-prs.mjs && node scripts/test-settings.mjs && node scripts/test-inbox.mjs && node scripts/test-dismissals.mjs && node scripts/test-sync.mjs",
+    "typecheck": "tsc -b"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.280",
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.24.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.0"
+  }
+}

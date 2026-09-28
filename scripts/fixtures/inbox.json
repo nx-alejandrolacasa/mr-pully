@@ -1,0 +1,859 @@
+{
+ "data": {
+  "viewer": {
+   "login": "me"
+  },
+  "rateLimit": {
+   "cost": 2,
+   "remaining": 4990,
+   "resetAt": "2026-09-28T13:00:00Z"
+  },
+  "review": {
+   "issueCount": 2,
+   "nodes": [
+    {
+     "id": "PR_api_88",
+     "number": 88,
+     "title": "Add rate limiting",
+     "url": "https://github.com/acme/api/pull/88",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": null,
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 3,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/api"
+     },
+     "author": {
+      "login": "alice"
+     },
+     "timelineItems": {
+      "nodes": [
+       {
+        "createdAt": "2026-09-26T09:00:00Z",
+        "requestedReviewer": {
+         "__typename": "User",
+         "login": "someone-else"
+        }
+       },
+       {
+        "createdAt": "2026-09-25T09:00:00Z",
+        "requestedReviewer": {
+         "__typename": "User",
+         "login": "me"
+        }
+       }
+      ]
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 10,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 10
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_web_12",
+     "number": 12,
+     "title": "Fix header",
+     "url": "https://github.com/Acme/Web/pull/12",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": null,
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "Acme/Web"
+     },
+     "author": {
+      "login": "bob"
+     },
+     "timelineItems": {
+      "nodes": [
+       {
+        "createdAt": "2026-09-20T09:00:00Z",
+        "requestedReviewer": {
+         "__typename": "User",
+         "login": "me"
+        }
+       }
+      ]
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "FAILURE",
+          "contexts": {
+           "checkRunCount": 8,
+           "statusContextCount": 1,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 6
+            },
+            {
+             "state": "FAILURE",
+             "count": 2
+            }
+           ],
+           "statusContextCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 0
+            },
+            {
+             "state": "PENDING",
+             "count": 1
+            }
+           ]
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "team": {
+   "issueCount": 2,
+   "nodes": [
+    {
+     "id": "PR_api_88",
+     "number": 88,
+     "title": "Add rate limiting",
+     "url": "https://github.com/acme/api/pull/88",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": null,
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 3,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/api"
+     },
+     "author": {
+      "login": "alice"
+     },
+     "timelineItems": {
+      "nodes": [
+       {
+        "createdAt": "2026-09-26T09:00:00Z",
+        "requestedReviewer": {
+         "__typename": "User",
+         "login": "someone-else"
+        }
+       },
+       {
+        "createdAt": "2026-09-25T09:00:00Z",
+        "requestedReviewer": {
+         "__typename": "User",
+         "login": "me"
+        }
+       }
+      ]
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 10,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 10
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_infra_5",
+     "number": 5,
+     "title": "Bump terraform",
+     "url": "https://github.com/acme/infra/pull/5",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": null,
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/infra"
+     },
+     "author": {
+      "login": "carol"
+     },
+     "timelineItems": {
+      "nodes": [
+       {
+        "createdAt": "2026-09-24T09:00:00Z",
+        "requestedReviewer": {
+         "__typename": "Team",
+         "slug": "platform"
+        }
+       }
+      ]
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": null,
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {}
+   ]
+  },
+  "authored": {
+   "issueCount": 60,
+   "nodes": [
+    {
+     "id": "PR_website_204",
+     "number": 204,
+     "title": "New landing hero",
+     "url": "https://github.com/acme/website/pull/204",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": "REVIEW_REQUIRED",
+     "mergeable": "CONFLICTING",
+     "mergeStateStatus": "DIRTY",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/website"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "PENDING",
+          "contexts": {
+           "checkRunCount": 5,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 3
+            },
+            {
+             "state": "IN_PROGRESS",
+             "count": 2
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_landing_157",
+     "number": 157,
+     "title": "Pricing page",
+     "url": "https://github.com/acme/landing/pull/157",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": "APPROVED",
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "BLOCKED",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/landing"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 4,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 4
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": [
+           {
+            "status": "COMPLETED",
+            "conclusion": "SUCCESS",
+            "app": {
+             "slug": "github-actions"
+            }
+           },
+           {
+            "status": "QUEUED",
+            "conclusion": null,
+            "app": {
+             "slug": "cloudflare-workers-and-pages"
+            }
+           }
+          ]
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_docs_9",
+     "number": 9,
+     "title": "Draft: new guide",
+     "url": "https://github.com/acme/docs/pull/9",
+     "isDraft": true,
+     "isInMergeQueue": false,
+     "reviewDecision": null,
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-20T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/docs"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": null,
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_docs_3",
+     "number": 3,
+     "title": "Old draft",
+     "url": "https://github.com/acme/docs/pull/3",
+     "isDraft": true,
+     "isInMergeQueue": false,
+     "reviewDecision": null,
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-08-10T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/docs"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": null,
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_cli_40",
+     "number": 40,
+     "title": "Parse flags",
+     "url": "https://github.com/acme/cli/pull/40",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": "APPROVED",
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/cli"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 6,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 5
+            },
+            {
+             "state": "SKIPPED",
+             "count": 1
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_cli_41",
+     "number": 41,
+     "title": "Refactor output",
+     "url": "https://github.com/acme/cli/pull/41",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": "CHANGES_REQUESTED",
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/cli"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 5,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 5
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_cli_42",
+     "number": 42,
+     "title": "Colours",
+     "url": "https://github.com/acme/cli/pull/42",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": null,
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/cli"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "ERROR",
+          "contexts": {
+           "checkRunCount": 0,
+           "statusContextCount": 2,
+           "checkRunCountsByState": [],
+           "statusContextCountsByState": [
+            {
+             "state": "ERROR",
+             "count": 1
+            },
+            {
+             "state": "SUCCESS",
+             "count": 1
+            }
+           ]
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_cli_43",
+     "number": 43,
+     "title": "Behind main",
+     "url": "https://github.com/acme/cli/pull/43",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": "APPROVED",
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "BEHIND",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/cli"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 1,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 1
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_cli_44",
+     "number": 44,
+     "title": "Just pushed",
+     "url": "https://github.com/acme/cli/pull/44",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": "APPROVED",
+     "mergeable": "UNKNOWN",
+     "mergeStateStatus": "UNKNOWN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/cli"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 1,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 1
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_cli_45",
+     "number": 45,
+     "title": "Queued",
+     "url": "https://github.com/acme/cli/pull/45",
+     "isDraft": false,
+     "isInMergeQueue": true,
+     "reviewDecision": null,
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "CLEAN",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/cli"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "PENDING",
+          "contexts": {
+           "checkRunCount": 1,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "IN_PROGRESS",
+             "count": 1
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_cli_46",
+     "number": 46,
+     "title": "Unstable",
+     "url": "https://github.com/acme/cli/pull/46",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": "APPROVED",
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "UNSTABLE",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/cli"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 1,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 1
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "PR_cli_47",
+     "number": 47,
+     "title": "Needs review",
+     "url": "https://github.com/acme/cli/pull/47",
+     "isDraft": false,
+     "isInMergeQueue": false,
+     "reviewDecision": "REVIEW_REQUIRED",
+     "mergeable": "MERGEABLE",
+     "mergeStateStatus": "BLOCKED",
+     "totalCommentsCount": 0,
+     "updatedAt": "2026-09-27T10:00:00Z",
+     "createdAt": "2026-09-01T10:00:00Z",
+     "headRefOid": "sha1",
+     "repository": {
+      "nameWithOwner": "acme/cli"
+     },
+     "author": {
+      "login": "octo"
+     },
+     "timelineItems": {
+      "nodes": []
+     },
+     "commits": {
+      "nodes": [
+       {
+        "commit": {
+         "statusCheckRollup": {
+          "state": "SUCCESS",
+          "contexts": {
+           "checkRunCount": 1,
+           "statusContextCount": 0,
+           "checkRunCountsByState": [
+            {
+             "state": "SUCCESS",
+             "count": 1
+            }
+           ],
+           "statusContextCountsByState": []
+          }
+         },
+         "checkSuites": {
+          "nodes": []
+         }
+        }
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

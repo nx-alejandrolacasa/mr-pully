@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mr. Pully</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="options">
+    <main>
+      <h1 data-i18n="optionsTitle">Mr. Pully settings</h1>
+
+      <section>
+        <h2 data-i18n="tokenHeading">GitHub token</h2>
+        <p class="hint" data-i18n="tokenHint"></p>
+        <p id="token-status" class="token-status"></p>
+        <div class="row">
+          <input id="token-input" type="password" autocomplete="off" spellcheck="false" placeholder="ghp_… or github_pat_…" aria-label="GitHub token" />
+          <button type="button" id="token-save" class="primary" data-i18n="save">Save</button>
+        </div>
+        <div class="row">
+          <button type="button" id="token-test" class="secondary" data-i18n="testToken">Test token</button>
+          <button type="button" id="token-remove" class="secondary" data-i18n="removeToken">Remove</button>
+          <a class="secondary-link" href="https://github.com/settings/tokens/new?scopes=repo,read:org&amp;description=Mr.%20Pully" target="_blank" rel="noreferrer" data-i18n="createToken">Create a token</a>
+        </div>
+        <p id="token-result" class="hint" role="status"></p>
+      </section>
+
+      <section>
+        <h2 data-i18n="inboxHeading">Inbox</h2>
+        <label class="setting">
+          <span data-i18n="refreshMinutesLabel">Refresh every (minutes)</span>
+          <input id="refreshMinutes-input" type="number" inputmode="numeric" step="1" />
+        </label>
+        <label class="setting">
+          <span data-i18n="staleDaysLabel">Hide your PRs not updated in (days, 0 = never)</span>
+          <input id="staleDays-input" type="number" inputmode="numeric" step="1" />
+        </label>
+        <label class="setting">
+          <span data-i18n="badgeColorLabel">Badge colour</span>
+          <input id="badgeColor-input" type="color" />
+        </label>
+      </section>
+
+      <section>
+        <h2 data-i18n="groupHeading">Live tab group</h2>
+        <label class="setting">
+          <span data-i18n="liveGroupLabel">Open and close PR tabs in a tab group</span>
+          <input id="liveGroup-input" type="checkbox" />
+        </label>
+        <label class="setting">
+          <span data-i18n="groupNameLabel">Group name</span>
+          <input id="groupName-input" type="text" spellcheck="false" />
+        </label>
+        <label class="setting">
+          <span data-i18n="groupColorLabel">Group colour</span>
+          <select id="groupColor-input"></select>
+        </label>
+        <label class="setting">
+          <span data-i18n="openDiscardedLabel">Open new PR tabs without loading them</span>
+          <input id="openDiscarded-input" type="checkbox" />
+        </label>
+        <label class="setting">
+          <span data-i18n="graceSecondsLabel">Wait before closing a finished PR tab (seconds)</span>
+          <input id="graceSeconds-input" type="number" inputmode="numeric" step="1" />
+        </label>
+      </section>
+
+      <section>
+        <h2 data-i18n="sectionsHeading">Sections</h2>
+        <table class="sections">
+          <thead>
+            <tr>
+              <th></th>
+              <th data-i18n="flag_popup">Popup</th>
+              <th data-i18n="flag_badge">Badge</th>
+              <th data-i18n="flag_group">Tab group</th>
+            </tr>
+          </thead>
+          <tbody id="sections-body"></tbody>
+        </table>
+      </section>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>

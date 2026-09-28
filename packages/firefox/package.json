@@ -1,0 +1,19 @@
+{
+  "name": "@mr-pully/firefox",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Live tab group and inbox for the GitHub pull requests that need you.",
+  "scripts": {
+    "build": "tsx build.ts",
+    "dev": "tsx build.ts && (tsx build.ts --watch & web-ext run --source-dir=dist)",
+    "lint": "web-ext lint --source-dir=dist",
+    "package": "web-ext build"
+  },
+  "dependencies": {
+    "@mr-pully/shared": "*"
+  },
+  "devDependencies": {
+    "web-ext": "^10.1.0"
+  }
+}

@@ -1,0 +1,55 @@
+name: Build extension ZIPs
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Existing release tag to attach ZIPs to (leave empty for artifact-only build)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [firefox, chrome]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - run: npm ci
+
+      - run: npm run typecheck
+
+      - run: npm test
+
+      - run: npm run build:${{ matrix.target }}
+
+      - run: npm run lint -w @mr-pully/${{ matrix.target }} --if-present
+
+      - run: npm run package -w @mr-pully/${{ matrix.target }}
+
+      - name: Attach ZIP to release
+        if: github.event_name == 'release' || inputs.release_tag != ''
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.release_tag }}
+          files: packages/${{ matrix.target }}/web-ext-artifacts/*.zip
+
+      - name: Upload ZIP as workflow artifact
+        if: github.event_name == 'workflow_dispatch' && inputs.release_tag == ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: mr-pully-${{ matrix.target }}
+          path: packages/${{ matrix.target }}/web-ext-artifacts/*.zip
