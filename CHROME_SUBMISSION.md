@@ -59,13 +59,7 @@ No. All JavaScript executed by the extension is bundled inside the package at bu
 Rationale for the reviewer (paste in the "Additional details" field if prompted):
 
 ```
-Mr. Pully has no server and the developer receives no data. The user
-pastes their own GitHub personal access token, which is stored in
-chrome.storage.local and sent only to api.github.com in the
-Authorization header, to fetch the user's open pull requests. Tab URLs
-are read only to recognise tabs that already show a tracked pull
-request; they are compared locally and never stored or transmitted.
-No analytics, telemetry, or crash reporting.
+Mr. Pully has no server and the developer receives no data. The user pastes their own GitHub personal access token, which is stored in chrome.storage.local and sent only to api.github.com in the Authorization header, to fetch the user's open pull requests. Tab URLs are read only to recognise tabs that already show a tracked pull request; they are compared locally and never stored or transmitted. No analytics, telemetry, or crash reporting.
 ```
 
 ## Data usage certifications
@@ -87,34 +81,21 @@ https://github.com/nx-alejandrolacasa/mr-pully/blob/main/PRIVACY.md
 > Paste into the "Justification" / "Testing instructions" field on submission.
 
 ```
-Mr. Pully keeps a "Pull requests" tab group in sync with the user's
-GitHub pull request inbox, shows the count on the badge and lists the
-pull requests in the popup, grouped like GitHub's inbox.
+Mr. Pully keeps a "Pull requests" tab group in sync with the user's GitHub pull request inbox, shows the count on the badge and lists the pull requests in the popup, grouped like GitHub's inbox.
 
-To test (needs a GitHub account and a classic personal access token
-with the repo scope):
+To test (needs a GitHub account and a classic personal access token with the repo scope):
 1. Install the extension. The badge shows "!" — no token yet.
-2. Open the extension's options, paste the token, click Save, then
-   Test token: it shows the account and its scopes.
-3. Click the toolbar icon: the popup lists the account's open pull
-   requests in GitHub-inbox sections.
-4. Have someone request your review on a pull request (or request it
-   from a second account): within the refresh interval a
-   "Pull requests" tab group appears with that pull request's tab.
-5. Close that tab: it moves to "Hidden from group" in the popup and is
-   not reopened. Click Reopen to bring it back.
-6. Submit the review and switch to another tab: about 30 seconds later
-   the pull request's tab closes.
+2. Open the extension's options, paste the token, click Save, then Test token: it shows the account and its scopes.
+3. Click the toolbar icon: the popup lists the account's open pull requests in GitHub-inbox sections.
+4. Have someone request your review on a pull request (or request it from a second account): within the refresh interval a "Pull requests" tab group appears with that pull request's tab.
+5. Close that tab: it moves to "Hidden from group" in the popup and is not reopened. Click Reopen to bring it back.
+6. Submit the review and switch to another tab: about 30 seconds later the pull request's tab closes.
 
-Network behavior: one GraphQL request to https://api.github.com/graphql
-per refresh, plus https://api.github.com/user when the user clicks
-Test token. No other destinations. No host permissions are requested
-because api.github.com answers CORS from any origin.
+Network behavior: one GraphQL request to https://api.github.com/graphql per refresh, plus https://api.github.com/user when the user clicks Test token. No other destinations. No host permissions are requested because api.github.com answers CORS from any origin.
 
 Build notes:
 - Source: https://github.com/nx-alejandrolacasa/mr-pully (MIT license)
-- npm install && npm run build reproduces the package (esbuild
-  monorepo, no env vars or secrets).
+- npm install && NODE_ENV=production npm run build reproduces the package (esbuild monorepo, no other env vars or secrets).
 - No analytics, telemetry, crash reporting, or remote code.
 ```
 

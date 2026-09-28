@@ -84,49 +84,27 @@ GitHub: https://github.com/nx-alejandrolacasa/mr-pully
 > Paste into AMO's "Notes for reviewer" field on submission.
 
 ```
-Mr. Pully keeps a tab group in sync with the user's GitHub pull request
-inbox. The background event page sends one GraphQL request to
-https://api.github.com/graphql per refresh (default every 2 minutes)
-with the user's own personal access token, sorts the results into
-GitHub-inbox-like sections, and opens or closes PR tabs in a
-"Pull requests" tab group to match.
+Mr. Pully keeps a tab group in sync with the user's GitHub pull request inbox. The background event page sends one GraphQL request to https://api.github.com/graphql per refresh (default every 2 minutes) with the user's own personal access token, sorts the results into GitHub-inbox-like sections, and opens or closes PR tabs in a "Pull requests" tab group to match.
 
 Permissions:
-- tabs: open and close PR tabs, read tab URLs to recognise tabs showing
-  a tracked PR (github.com/{owner}/{repo}/pull/{n}) so no duplicates are
-  opened, and focus a PR's tab from the popup. URLs are compared
-  locally, never stored or transmitted.
+- tabs: open and close PR tabs, read tab URLs to recognise tabs showing a tracked PR (github.com/{owner}/{repo}/pull/{n}) so no duplicates are opened, and focus a PR's tab from the popup. URLs are compared locally, never stored or transmitted.
 - tabGroups: create, find, name and colour the "Pull requests" group.
-- storage: token, settings and the list of PR tabs the user closed in
-  storage.local; the fetched inbox and tab-group state in
-  storage.session.
-- alarms: the periodic refresh and closing finished PR tabs after the
-  grace period.
+- storage: token, settings and the list of PR tabs the user closed in storage.local; the fetched inbox and tab-group state in storage.session.
+- alarms: the periodic refresh and closing finished PR tabs after the grace period.
 
-No host permissions: api.github.com answers CORS from any origin. No
-content scripts, no analytics, no remote code. The only network
-destination is api.github.com.
+No host permissions: api.github.com answers CORS from any origin. No content scripts, no analytics, no remote code. The only network destination is api.github.com.
 
-Data collection: authenticationInfo, because the user's GitHub token is
-sent to api.github.com (and nowhere else) to fetch their pull requests.
+Data collection: authenticationInfo, because the user's GitHub token is sent to api.github.com (and nowhere else) to fetch their pull requests.
 
-Build: npm install && NODE_ENV=production npm run build:firefox
-(esbuild monorepo; see README). No .env or secrets involved.
+Build: npm install && NODE_ENV=production npm run build:firefox (esbuild monorepo; see README). No .env or secrets involved.
 
-To test (needs a GitHub account and a classic personal access token
-with the repo scope):
+To test (needs a GitHub account and a classic personal access token with the repo scope):
 1. Install the add-on. The badge shows "!" — no token yet.
-2. Open the add-on's preferences, paste the token, click Save, then
-   Test token: it shows the account and its scopes.
-3. Click the toolbar icon: the popup lists the account's open PRs in
-   GitHub-inbox sections.
-4. Have someone request your review on a PR (or request it from a
-   second account): within the refresh interval a "Pull requests" tab
-   group appears with that PR's tab, unloaded.
-5. Close that tab: it moves to "Hidden from group" in the popup and is
-   not reopened. Click Reopen to bring it back.
-6. Submit the review and switch to another tab: about 30 seconds later
-   the PR's tab closes.
+2. Open the add-on's preferences, paste the token, click Save, then Test token: it shows the account and its scopes.
+3. Click the toolbar icon: the popup lists the account's open PRs in GitHub-inbox sections.
+4. Have someone request your review on a PR (or request it from a second account): within the refresh interval a "Pull requests" tab group appears with that PR's tab, unloaded.
+5. Close that tab: it moves to "Hidden from group" in the popup and is not reopened. Click Reopen to bring it back.
+6. Submit the review and switch to another tab: about 30 seconds later the PR's tab closes.
 ```
 
 ## Source code submission
@@ -140,10 +118,7 @@ Requirements: Node.js 22.x (ships with npm 10). Any OS.
 2. npm install
 3. NODE_ENV=production npm run build:firefox
 
-The Firefox package is produced at packages/firefox/dist/ and matches
-the uploaded zip: esbuild IIFE bundles. No env vars (other than
-NODE_ENV to minify), secrets, or code generation are involved — the
-build is a plain esbuild bundle plus static asset copies.
+The Firefox package is produced at packages/firefox/dist/ and matches the uploaded zip: esbuild IIFE bundles. No env vars (other than NODE_ENV to minify), secrets, or code generation are involved — the build is a plain esbuild bundle plus static asset copies.
 ```
 
 ## Release notes
