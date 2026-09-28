@@ -5,7 +5,7 @@
 import { updateBadge } from "./badge.ts";
 import { dismissalOf } from "./dismissals.ts";
 import { fetchInbox, type FetchResult, type Source } from "./github.ts";
-import { buildInbox, SECTION_SOURCE, truncatedSources, type Inbox, type PrItem } from "./inbox.ts";
+import { buildInbox, hiddenBySso, SECTION_SOURCE, truncatedSources, type Inbox } from "./inbox.ts";
 import { isRequest, type InboxView, type Request } from "./messages.ts";
 import { prKey } from "./prs.ts";
 import {
@@ -34,7 +34,6 @@ import {
 
 export interface Platform {
   minAlarmMs: number;
-  createsDiscardedTabs: boolean;
 }
 
 const REFRESH_ALARM = "refresh";
@@ -42,6 +41,7 @@ const REMOVAL_ALARM = "remove";
 const STARTUP_SYNC_DELAY_MS = 5000;
 const EVENT_BUFFER_MS = 500;
 const POPUP_STALE_MS = 30_000;
+const PAGE_TITLE_TIMEOUT_MS = 10_000;
 const NO_GROUP = -1;
 
 let platform: Platform;
@@ -151,8 +151,9 @@ async function applyFetch(result: FetchResult): Promise<void> {
     const accountChanged = local.viewer !== undefined && local.viewer !== viewer;
     if (local.viewer !== viewer) await writeLocal({ viewer, ...(accountChanged ? { dismissed: {} } : {}) });
     const previous = accountChanged ? undefined : session.inbox;
+    const items = buildInbox(result.data, { ...(previous ? { previous } : {}), staleDays: settings.staleDays, now });
     inbox = {
-      items: buildInbox(result.data, { ...(previous ? { previous } : {}), staleDays: settings.staleDays, now }),
+      items: result.ssoRequired && previous ? [...items, ...hiddenBySso(previous.items, items)] : items,
       truncated: truncatedSources(result.data),
       viewer,
       fetchedAt: now,
@@ -235,20 +236,23 @@ async function openTabs(plan: SyncPlan, settings: Settings): Promise<{ managed: 
   const windowId = plan.openInWindowId;
   if (plan.open.length === 0 || windowId === undefined) return { managed, ...(group ? { group } : {}) };
 
+  const tabs = await Promise.all(
+    plan.open.map((item) => createTab(item.url, windowId, settings.openDiscarded).catch(() => undefined))
+  );
   const created: number[] = [];
-  for (const item of plan.open) {
-    const tab = await createTab(item, windowId, settings.openDiscarded).catch(() => undefined);
-    if (tab?.id === undefined) continue;
-    created.push(tab.id);
-    managed[tab.id] = { prId: item.id, key: item.key };
-  }
+  plan.open.forEach((item, i) => {
+    const tabId = tabs[i]?.id;
+    if (tabId === undefined) return;
+    created.push(tabId);
+    managed[tabId] = { prId: item.id, key: item.key };
+  });
   const [first, ...rest] = created;
   if (first === undefined) return { managed, ...(group ? { group } : {}) };
   const tabIds: [number, ...number[]] = [first, ...rest];
 
-  if (group) {
-    await chrome.tabs.group({ groupId: group.groupId, tabIds });
-  } else {
+  // The group is gone if this sync just closed its last tab.
+  const joinedGroup = group && (await chrome.tabs.group({ groupId: group.groupId, tabIds }).catch(() => undefined));
+  if (joinedGroup === undefined) {
     const groupId = await chrome.tabs.group({ tabIds, createProperties: { windowId } });
     group = { groupId, windowId };
     await chrome.tabGroups.update(groupId, { title: settings.groupName, color: settings.groupColor });
@@ -256,21 +260,33 @@ async function openTabs(plan: SyncPlan, settings: Settings): Promise<{ managed: 
   return { managed, group };
 }
 
-// Firefox can create a tab unloaded, with a title; Chrome can only discard
-// it afterwards, and the discarded tab may come back with a new id.
-async function createTab(item: PrItem, windowId: number, discarded: boolean): Promise<chrome.tabs.Tab | undefined> {
-  const { url } = item;
-  if (discarded && platform.createsDiscardedTabs) {
-    const properties = { url, windowId, active: false, discarded: true, title: githubPageTitle(item) };
-    return chrome.tabs.create(properties as chrome.tabs.CreateProperties);
-  }
+// A discarded tab keeps the title and favicon it had, so it's discarded
+// once the page has its own title. Chrome may return it with a new id.
+async function createTab(url: string, windowId: number, discarded: boolean): Promise<chrome.tabs.Tab | undefined> {
   const tab = await chrome.tabs.create({ url, windowId, active: false });
-  if (!discarded || tab.id === undefined) return tab;
+  if (!discarded || tab.id === undefined || !(await readyToDiscard(tab.id, url))) return tab;
   return (await chrome.tabs.discard(tab.id).catch(() => undefined)) ?? tab;
 }
 
-function githubPageTitle({ title, author, number, repo }: PrItem): string {
-  return `${title} by ${author} · Pull Request #${number} · ${repo}`;
+// Discarding before the URL commits leaves an empty "Untitled" tab, so on
+// timeout it's only ready if the URL is there.
+function readyToDiscard(tabId: number, url: string): Promise<boolean> {
+  const hasPageTitle = (tab: chrome.tabs.Tab) => !!tab.url && !!tab.title && !url.includes(tab.title);
+  return new Promise((resolve) => {
+    const finish = (ready: boolean) => {
+      chrome.tabs.onUpdated.removeListener(onUpdated);
+      clearTimeout(timer);
+      resolve(ready);
+    };
+    const onUpdated = (id: number, _changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
+      if (id === tabId && hasPageTitle(tab)) finish(true);
+    };
+    const timer = setTimeout(() => {
+      chrome.tabs.get(tabId).then((tab) => finish(!!tab.url), () => finish(false));
+    }, PAGE_TITLE_TIMEOUT_MS);
+    chrome.tabs.onUpdated.addListener(onUpdated);
+    chrome.tabs.get(tabId).then((tab) => hasPageTitle(tab) && finish(true), () => finish(false));
+  });
 }
 
 async function scheduleRemoval(pendingRemoval: Record<string, number>): Promise<void> {
@@ -332,7 +348,7 @@ async function tabUpdated(tabId: number, changeInfo: chrome.tabs.TabChangeInfo):
     }
     return;
   }
-  if (entry && prKey(changeInfo.url) !== entry.key) await forgetManaged(tabId, session.managed);
+  if (entry && changeInfo.url && prKey(changeInfo.url) !== entry.key) await forgetManaged(tabId, session.managed);
 }
 
 async function tabReplaced(addedTabId: number, removedTabId: number): Promise<void> {

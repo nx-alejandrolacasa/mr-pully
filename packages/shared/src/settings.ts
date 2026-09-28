@@ -34,7 +34,7 @@ export const LIMITS = {
 export const DEFAULT_SETTINGS: Settings = {
   refreshMinutes: 2,
   groupName: "Pull requests",
-  groupColor: "blue",
+  groupColor: "grey",
   liveGroup: true,
   openDiscarded: true,
   graceSeconds: 30,

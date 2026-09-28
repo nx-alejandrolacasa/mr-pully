@@ -51,6 +51,7 @@ async function act(request: Request): Promise<void> {
 function render(view: InboxView, settings: Settings): void {
   const { inbox } = view;
   byId("updated").textContent = inbox.fetchedAt ? msg("updatedAgo", relativeTime(inbox.fetchedAt)) : "";
+  byId("skeleton").hidden = inbox.fetchedAt !== undefined || inbox.error !== undefined;
   renderBanners(view, settings);
 
   const sections = byId("sections");

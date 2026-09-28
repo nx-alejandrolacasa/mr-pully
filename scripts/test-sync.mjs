@@ -261,6 +261,21 @@ for (const title of ["Pull requests (3)", "pull requests", "Pull*", "Pull reques
   assert.deepEqual(draggedBack.dismissed, {});
 }
 
+// A managed tab with no URL yet is still loading: kept, and its PR not reopened.
+{
+  const loading = plan({ items: [pr(1)], groups: [ourGroup], managed: { 10: managedTab(1) }, tabs: [tab(10, "", { groupId: 7 })] });
+  assert.deepEqual(loading.managed, { 10: managedTab(1) });
+  assert.deepEqual(opened(loading), []);
+}
+
+// A PR tab redirected to login (signed out) is still that PR's tab: kept, not reopened.
+{
+  const login = `https://github.com/login?return_to=${encodeURIComponent("/acme/api/pull/1")}`;
+  const signedOut = plan({ items: [pr(1)], groups: [ourGroup], managed: { 10: managedTab(1) }, tabs: [tab(10, login, { groupId: 7 })] });
+  assert.deepEqual(signedOut.managed, { 10: managedTab(1) });
+  assert.deepEqual(opened(signedOut), []);
+}
+
 // Group removal: window closed, whole group closed, or its last tab closed.
 {
   const removed = (n, isWindowClosing = false) => ({ kind: "removed", entry: managedTab(n), isWindowClosing });

@@ -1,11 +1,12 @@
 {
   "extName": { "message": "Mr. Pully" },
-  "extDescription": { "message": "Your GitHub pull request inbox as a live tab group: PRs that need you open in a group and close when they're done, with a count on the toolbar badge." },
+  "extDescription": { "message": "Your GitHub pull request inbox as a live tab group: PRs that need you open in a group and close when done, counted on the badge." },
   "popupTitle": { "message": "Inbox" },
   "refresh": { "message": "Refresh" },
   "settings": { "message": "Settings" },
   "updatedAgo": { "message": "updated {0}" },
   "emptyState": { "message": "Nothing needs you right now." },
+  "loading": { "message": "Loading…" },
   "hiddenFromGroup": { "message": "Hidden from group" },
   "reopen": { "message": "Reopen" },
   "checksTitle": { "message": "Checks passed" },

@@ -1,6 +1,6 @@
 {
   "name": "@mr-pully/shared",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "description": "GitHub inbox, tab group reconciliation, background, popup and options UI shared between Firefox and Chrome.",

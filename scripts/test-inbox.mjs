@@ -2,7 +2,7 @@
 // fixture modelled on the screenshot cases in docs/PLAN.md. Run via:  npm test
 import assert from "node:assert";
 import { readFileSync } from "node:fs";
-import { buildInbox, truncatedSources } from "../packages/shared/src/inbox.ts";
+import { buildInbox, hiddenBySso, truncatedSources } from "../packages/shared/src/inbox.ts";
 import { buildQuery, interpretGraphql } from "../packages/shared/src/github.ts";
 
 const fixture = JSON.parse(readFileSync(new URL("./fixtures/inbox.json", import.meta.url), "utf8"));
@@ -99,6 +99,17 @@ assert.deepEqual(truncatedSources(raw), ["authored"]);
 
   const broken = interpretGraphql(502, { errors: [{ message: "Something went wrong" }] }, null, now);
   assert.deepEqual(broken, { ok: false, error: { kind: "github", message: "Something went wrong" } });
+
+  const searchFailed = interpretGraphql(200, { data: { ...raw, team: null }, errors: [{ message: "Timeout" }] }, null, now);
+  assert.deepEqual(searchFailed, { ok: false, error: { kind: "github", message: "Timeout" } });
+}
+
+// SSO partial results keep the PRs of orgs that vanished entirely.
+{
+  const item = (repo, id) => ({ id, repo });
+  const previous = [item("acme/api", "A"), item("sso-org/app", "B"), item("sso-org/lib", "C")];
+  assert.deepEqual(hiddenBySso(previous, [item("acme/web", "D")]).map((i) => i.id), ["B", "C"]);
+  assert.deepEqual(hiddenBySso(previous, [item("acme/web", "D"), item("sso-org/app", "B")]).map((i) => i.id), []);
 }
 
 console.log("inbox: ok");

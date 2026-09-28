@@ -20,7 +20,7 @@ assert.deepEqual(normalizeSettings({}), DEFAULT_SETTINGS);
   assert.equal(s.graceSeconds, 600);
   assert.equal(s.staleDays, 12);
   assert.equal(s.groupName, "Pull requests");
-  assert.equal(s.groupColor, "blue");
+  assert.equal(s.groupColor, "grey");
   assert.equal(s.liveGroup, true);
   assert.deepEqual(s.sections.review, { popup: true, badge: true, group: false });
   assert.equal("bogus" in s.sections, false);

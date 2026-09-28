@@ -53,6 +53,7 @@ Through the `tabs` permission, the extension reads the URLs of your tabs to reco
 | `alarms` | Refresh the inbox periodically and close finished PR tabs after the grace period. |
 | `tabs` | Open and close PR tabs, read tab URLs to recognise PR tabs, and focus a PR's tab from the popup. |
 | `tabGroups` | Create, find, name and colour the "Pull requests" tab group. |
+| `offscreen` (Chrome only) | A hidden page that checks whether the browser is in light or dark mode, so the toolbar icon stays visible. |
 
 The extension requests no host permissions: GitHub's API accepts requests from extensions without them.
 

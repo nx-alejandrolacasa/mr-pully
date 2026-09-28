@@ -19,4 +19,13 @@ assert.equal(prKey("javascript:alert(1)"), undefined);
 assert.equal(prKey(""), undefined);
 assert.equal(prKey(undefined), undefined);
 
+// Login and SSO redirects still belong to the PR they return to.
+assert.equal(prKey("https://github.com/login?return_to=%2Facme%2Fapi%2Fpull%2F88"), "acme/api#88");
+assert.equal(prKey("https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Facme%2Fapi%2Fpull%2F88%2Ffiles"), "acme/api#88");
+assert.equal(prKey("https://github.com/orgs/acme/sso?return_to=%2Facme%2Fapi%2Fpull%2F88"), "acme/api#88");
+assert.equal(prKey("https://github.com/login?return_to=%2Facme%2Fapi%2Fissues%2F88"), undefined);
+assert.equal(prKey("https://github.com/login?return_to=https%3A%2F%2Fevil.example%2Facme%2Fapi%2Fpull%2F88"), undefined);
+assert.equal(prKey("https://github.com/login?return_to=%2F%2Fevil.example%2Facme%2Fapi%2Fpull%2F88"), undefined);
+assert.equal(prKey("https://evil.example/login?return_to=https%3A%2F%2Fgithub.com%2Facme%2Fapi%2Fpull%2F88"), undefined);
+
 console.log("prs: ok");

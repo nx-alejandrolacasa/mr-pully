@@ -193,6 +193,16 @@ function toItem(pr: RawPullRequest, placement: Placement, lastReviewRequestAt: s
   };
 }
 
+// With SSO partial results, an org whose PRs all vanished at once is more
+// likely hidden than done, so its PRs are kept from the previous inbox.
+// ponytail: guesses by owner, so an org's last PR lingers until SSO is fixed;
+// matching the X-GitHub-SSO org ids against owner databaseIds would be exact.
+export function hiddenBySso(previous: readonly PrItem[], current: readonly PrItem[]): PrItem[] {
+  const ownerOf = (item: PrItem) => item.repo.split("/")[0];
+  const visibleOwners = new Set(current.map(ownerOf));
+  return previous.filter((item) => !visibleOwners.has(ownerOf(item)));
+}
+
 export function itemsIn(items: readonly PrItem[], sections: ReadonlySet<SectionId>): PrItem[] {
   return items.filter((item) => sections.has(item.section));
 }

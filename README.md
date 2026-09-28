@@ -43,7 +43,7 @@ opened yourself outside the group.
 | Hide your PRs not updated in N days (0 = never) | 30 |
 | Badge colour | blue (`#0969da`) |
 | Live tab group on/off | on |
-| Group name / colour | `Pull requests` / blue |
+| Group name / colour | `Pull requests` / grey |
 | Open new PR tabs without loading them | on |
 | Wait before closing a finished PR tab (seconds, 0–600) | 30 (on Chrome, 1–29 act as 30) |
 | Per section: show in popup / count in badge / add to tab group | review sections everywhere; your own PRs in the popup; *Needs action* and *Ready to merge* also in the badge |
@@ -89,8 +89,11 @@ or `packages/chrome/dist` via `chrome://extensions` → "Load unpacked".
 `scripts/fixtures/inbox.json` is a synthetic GraphQL response modelled on
 real inbox cases; replace it with a recorded, anonymised one when available.
 
-The Chrome icon PNG is rendered from the SVG design at build time
-(`packages/shared/src/build-helpers/icon-png.ts`);
+The toolbar icon is the glyph without the background, dark or white to
+follow the browser's light or dark mode: Firefox picks it through
+`theme_icons`, Chrome through an offscreen document that watches
+`prefers-color-scheme`. Chrome's PNGs are rendered from the SVG design at
+build time (`packages/shared/src/build-helpers/icon-png.ts`);
 `node scripts/generate-icon.mjs` writes the same PNG to
 `packages/shared/assets/icons/icon.png` for a store listing.
 

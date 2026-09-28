@@ -211,6 +211,79 @@ button.icon svg {
   font-size: 11px;
 }
 
+.skeleton-summary {
+  padding: 9px 10px;
+  background: var(--bg-soft);
+}
+
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+}
+
+.skeleton-row .pr-main {
+  gap: 6px;
+}
+
+.bone {
+  display: block;
+  width: 80%;
+  height: 10px;
+  border-radius: 4px;
+  background: var(--border);
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+
+.skeleton-summary .bone {
+  width: 35%;
+}
+
+.skeleton-row:nth-child(2) .bone:first-child {
+  width: 62%;
+}
+
+.skeleton-row:nth-child(3) .bone:first-child {
+  width: 72%;
+}
+
+.bone.short {
+  width: 45%;
+  height: 8px;
+}
+
+.bone.pill {
+  flex: none;
+  width: 56px;
+  height: 14px;
+  border-radius: 10px;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bone {
+    animation: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .items {
   margin: 0;
   padding: 0;

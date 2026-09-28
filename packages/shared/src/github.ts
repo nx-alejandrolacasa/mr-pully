@@ -162,7 +162,8 @@ export function interpretGraphql(
     return { ok: false, error: { kind: "rate-limited", until: Number.isFinite(resetAt) ? resetAt : now + 60_000 } };
   }
   const data = body.data;
-  if (!data?.viewer) {
+  const searchFailed = data && (Object.keys(SEARCH_QUERIES) as Source[]).some((source) => data[source] === null);
+  if (!data?.viewer || searchFailed) {
     const message = errors[0]?.message ?? `HTTP ${status}`;
     return { ok: false, error: { kind: "github", message } };
   }

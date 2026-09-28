@@ -5,11 +5,11 @@
   "description": "__MSG_extDescription__",
   "default_locale": "en",
   "homepage_url": "https://github.com/nx-alejandrolacasa/mr-pully",
-  "permissions": ["storage", "alarms", "tabs", "tabGroups"],
+  "permissions": ["storage", "alarms", "tabs", "tabGroups", "offscreen"],
   "icons": { "128": "icons/icon.png" },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": { "128": "icons/icon.png" }
+    "default_icon": { "16": "icons/toolbar-dark-16.png", "32": "icons/toolbar-dark-32.png" }
   },
   "options_ui": {
     "page": "options.html",

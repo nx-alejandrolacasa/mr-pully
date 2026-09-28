@@ -14,6 +14,15 @@
         <button type="button" id="options" class="icon" data-i18n-title="settings" aria-label="Settings"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.65 2.98 L7.04 1.17 L8.96 1.17 L9.35 2.98 L10.60 3.50 L12.15 2.49 L13.51 3.85 L12.50 5.40 L13.02 6.65 L14.83 7.04 L14.83 8.96 L13.02 9.35 L12.50 10.60 L13.51 12.15 L12.15 13.51 L10.60 12.50 L9.35 13.02 L8.96 14.83 L7.04 14.83 L6.65 13.02 L5.40 12.50 L3.85 13.51 L2.49 12.15 L3.50 10.60 L2.98 9.35 L1.17 8.96 L1.17 7.04 L2.98 6.65 L3.50 5.40 L2.49 3.85 L3.85 2.49 L5.40 3.50 Z"/><circle cx="8" cy="8" r="2.25"/></svg></button>
       </header>
       <div id="banners"></div>
+      <div id="skeleton" class="section" role="status">
+        <span class="visually-hidden" data-i18n="loading">Loading…</span>
+        <div class="skeleton-summary"><span class="bone"></span></div>
+        <ul class="items">
+          <li class="skeleton-row"><span class="pr-main"><span class="bone"></span><span class="bone short"></span></span><span class="bone pill"></span></li>
+          <li class="skeleton-row"><span class="pr-main"><span class="bone"></span><span class="bone short"></span></span><span class="bone pill"></span></li>
+          <li class="skeleton-row"><span class="pr-main"><span class="bone"></span><span class="bone short"></span></span><span class="bone pill"></span></li>
+        </ul>
+      </div>
       <div id="sections"></div>
       <p id="empty-state" class="muted" data-i18n="emptyState" hidden>Nothing needs you right now.</p>
       <div id="dismissed"></div>

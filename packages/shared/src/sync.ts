@@ -187,12 +187,14 @@ export function planSync(input: SyncInput): SyncPlan {
   };
 }
 
+// A tab without a URL yet is still loading its PR; dropping it would open
+// the PR again on every sync.
 function managedTabsIn(groupId: number, managed: Managed, tabs: readonly TabInfo[]): Managed {
   const tabsById = new Map(tabs.map((tab) => [tab.id, tab]));
   return Object.fromEntries(
     Object.entries(managed).filter(([tabId, entry]) => {
       const tab = tabsById.get(Number(tabId));
-      return tab !== undefined && tab.groupId === groupId && prKey(tab.url) === entry.key;
+      return tab !== undefined && tab.groupId === groupId && (tab.url === "" || prKey(tab.url) === entry.key);
     })
   );
 }

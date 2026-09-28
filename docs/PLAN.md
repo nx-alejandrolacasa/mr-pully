@@ -99,6 +99,11 @@ No content script is needed.
   considers first-party API calls with the user's own token out of scope.
 - Chrome manifest: same, with `service_worker` and `minimum_chrome_version`
   `"120"` (tabGroups since 89, `alarms` 30 s minimum since 120).
+- Toolbar icon: the glyph without its background, dark or white. Firefox
+  switches through `action.theme_icons`; Chrome has no equivalent, so it adds
+  the `offscreen` permission for a document that watches
+  `prefers-color-scheme` (service workers can't) and messages the background,
+  which calls `action.setIcon`.
 
 ## GitHub data
 
@@ -199,7 +204,7 @@ into `!`.
 | GitHub token: write-only password field (the saved token is never shown again, only "a token is saved"), *Save* / *Test* / *Remove*, stored under its own `token` key so the popup never loads it. "Test" button showing login + scopes from `X-OAuth-Scopes`; fine-grained tokens send no such header, so show "fine-grained token" instead of an empty list) | — |
 | Refresh interval (minutes, 1–60) | 2 |
 | Tab group name | `Pull requests` |
-| Tab group colour (`grey`, `blue`, `red`, `yellow`, `green`, `pink`, `purple`, `cyan`, `orange`) | `blue` |
+| Tab group colour (`grey`, `blue`, `red`, `yellow`, `green`, `pink`, `purple`, `cyan`, `orange`) | `grey` |
 | Live tab group on/off | on |
 | Open new PR tabs unloaded (`discarded: true`) | on |
 | Grace period before closing a finished PR tab (seconds, 0–600) | 30 |
@@ -306,7 +311,8 @@ and tab ids to close.
    you want it there.
 3. **Open**: for each tracked PR with no managed tab, not dismissed, and not
    already open elsewhere →
-   `tabs.create({ url, windowId, active: false, discarded })`, then
+   `tabs.create({ url, windowId, active: false })`, discarded once the page
+   has its own title (both browsers), then
    `tabs.group({ tabIds, groupId | createProperties: { windowId } })` and
    `tabGroups.update({ title, color })` for a new group. New tabs are appended
    to the group; nothing is reordered. If the PR is already open in a tab
@@ -429,9 +435,12 @@ Same code; differences to handle:
 - Alarms minimum 30 s: the `remove` alarm is never set earlier than
   `now + 30 s`, so a grace of 1–29 s acts as 30 s (0 still closes on the
   sync itself).
-- `tabs.create({ discarded })` is not supported in Chrome: create, then
-  `tabs.discard()`, and keep the id of the tab it **returns** (it may differ
-  from the created one; `tabs.onReplaced` covers other replacements).
+- `tabs.create({ discarded })` is not supported in Chrome, and Firefox shows
+  the URL instead of its `title`: both create the tab, wait for the page's
+  title (up to 10 s) and then `tabs.discard()` it, keeping the id of the tab
+  it **returns** (Chrome may change it; `tabs.onReplaced` covers other
+  replacements). Discarding before the URL commits leaves an empty
+  "Untitled" tab, so on timeout it's only discarded if the URL is there.
 - `tabGroups.onRemoved` has no `removeInfo`; window closes are detected via
   the buffered `tabs.onRemoved` events (see [Tab and group
   events](#tab-and-group-events)).
@@ -459,12 +468,12 @@ Same code; differences to handle:
 
 ## Milestones
 
-**Status (2026-09-28):** milestones 1–7 are implemented and typecheck, test
-and lint clean; nothing has run in a real browser or against the real API yet.
-Still open: spikes 1–6 (the buffer length, startup delay and team/fine-grained
-token behaviour are unverified defaults), recording a real anonymised fixture
-to replace the synthetic `scripts/fixtures/inbox.json`, and milestone 8
-(store listings, release).
+**Status (2026-09-28):** v1.0.0 — all milestones are implemented, with
+store listing copy in `LISTING_CHROME.md`, `LISTING_FIREFOX.md` and
+`CHROME_SUBMISSION.md`. Still open: spikes 1–6 (the buffer length, startup
+delay and team/fine-grained token behaviour are unverified defaults),
+recording a real anonymised fixture to replace the synthetic
+`scripts/fixtures/inbox.json`, and store screenshots.
 
 
 1. **Scaffold** — copy mr-pinny's workspace, build scripts, tsconfig, release

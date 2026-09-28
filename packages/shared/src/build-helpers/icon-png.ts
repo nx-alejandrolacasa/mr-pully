@@ -1,13 +1,19 @@
-// Rasterize the extension icon (same design as assets/icons/icon.svg) to a
-// 128×128 PNG for Chrome, which doesn't accept SVG manifest icons. Pure
-// Node, no dependencies: signed-distance fields for the shapes and a
-// minimal PNG encoder. The Chrome build calls it, so no binary is committed.
+// Rasterize the extension icon (same design as assets/icons/icon.svg) and
+// the background-free toolbar glyph (assets/icons/toolbar-*.svg) to PNGs for
+// Chrome, which doesn't accept SVG manifest icons. Pure Node, no
+// dependencies: signed-distance fields for the shapes and a minimal PNG
+// encoder. The Chrome build calls it, so no binary is committed.
 import { deflateSync } from "node:zlib";
 
 const SIZE = 128;
 
 const BACKGROUND = [0, 0, 0];
 const PAPER = [255, 255, 255];
+export const TOOLBAR_DARK = [0x1f, 0x23, 0x28];
+export const TOOLBAR_LIGHT = [255, 255, 255];
+// The glyph's bounding square, the toolbar SVGs' viewBox.
+const TOOLBAR_ORIGIN = 18;
+const TOOLBAR_SPAN = 92;
 
 const HALF_STROKE = 4;
 type Point = readonly [number, number];
@@ -120,18 +126,30 @@ function chunk(type: string, data: Buffer): Buffer {
 }
 
 export function renderIconPng(): Buffer {
-  const raw = Buffer.alloc(SIZE * (SIZE * 4 + 1));
-  for (let y = 0; y < SIZE; y++) {
-    const row = y * (SIZE * 4 + 1);
+  return encodePng(SIZE, pixel);
+}
+
+export function renderToolbarPng(size: number, color: readonly number[]): Buffer {
+  const scale = TOOLBAR_SPAN / size;
+  return encodePng(size, (x, y) => {
+    const distance = glyphSDF(TOOLBAR_ORIGIN + (x + 0.5) * scale, TOOLBAR_ORIGIN + (y + 0.5) * scale);
+    return [...color, Math.round(coverage(distance / scale) * 255)];
+  });
+}
+
+function encodePng(size: number, pixelAt: (x: number, y: number) => number[]): Buffer {
+  const raw = Buffer.alloc(size * (size * 4 + 1));
+  for (let y = 0; y < size; y++) {
+    const row = y * (size * 4 + 1);
     raw[row] = 0; // filter: none
-    for (let x = 0; x < SIZE; x++) {
-      raw.set(pixel(x, y), row + 1 + x * 4);
+    for (let x = 0; x < size; x++) {
+      raw.set(pixelAt(x, y), row + 1 + x * 4);
     }
   }
 
   const ihdr = Buffer.alloc(13);
-  ihdr.writeUInt32BE(SIZE, 0);
-  ihdr.writeUInt32BE(SIZE, 4);
+  ihdr.writeUInt32BE(size, 0);
+  ihdr.writeUInt32BE(size, 4);
   ihdr.set([8, 6, 0, 0, 0], 8); // 8-bit RGBA
 
   return Buffer.concat([
