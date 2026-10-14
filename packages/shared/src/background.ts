@@ -252,11 +252,12 @@ async function openTabs(plan: SyncPlan, settings: Settings): Promise<{ managed: 
 
   // The group is gone if this sync just closed its last tab.
   const joinedGroup = group && (await chrome.tabs.group({ groupId: group.groupId, tabIds }).catch(() => undefined));
+  const groupId = joinedGroup ?? (await chrome.tabs.group({ tabIds, createProperties: { windowId } }));
   if (joinedGroup === undefined) {
-    const groupId = await chrome.tabs.group({ tabIds, createProperties: { windowId } });
     group = { groupId, windowId };
     await chrome.tabGroups.update(groupId, { title: settings.groupName, color: settings.groupColor });
   }
+  await chrome.tabGroups.move(groupId, { index: 0 }).catch(() => {});
   return { managed, group };
 }
 
