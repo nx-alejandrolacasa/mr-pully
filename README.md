@@ -13,7 +13,8 @@ mirrors GitHub's [pull requests Inbox](https://github.com/pulls).
   period. It waits if you're still looking at that tab.
 - **Tabs you close stay closed** until the PR gets new commits or a new review
   request for you. The popup lists them under "Hidden from group" with a
-  *Reopen* button.
+  *Reopen* button, and the clock icon in the popup header reopens them all
+  at once.
 - **Badge** with the number of PRs that need attention, or `!` when the
   token is missing or rejected, or the group was renamed, closed or
   duplicated. The popup explains what's wrong and offers a fix.

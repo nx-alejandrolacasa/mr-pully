@@ -3,6 +3,7 @@
   "extDescription": { "message": "Your GitHub pull request inbox as a live tab group: PRs that need you open in a group and close when done, counted on the badge." },
   "popupTitle": { "message": "Inbox" },
   "refresh": { "message": "Refresh" },
+  "reopenGroup": { "message": "Reopen PR tabs in the group" },
   "settings": { "message": "Settings" },
   "updatedAgo": { "message": "updated {0}" },
   "emptyState": { "message": "Nothing needs you right now." },

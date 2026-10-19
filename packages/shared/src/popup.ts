@@ -14,6 +14,7 @@ const CHECK_ICONS = { success: "✓", failure: "✗", pending: "●" } as const;
 export async function runPopup(): Promise<void> {
   localize();
   byId<HTMLButtonElement>("refresh").addEventListener("click", () => void refresh());
+  byId<HTMLButtonElement>("reopen-group").addEventListener("click", () => void act({ type: "reopen-group" }));
   byId<HTMLButtonElement>("options").addEventListener("click", () => void openOptions());
   chrome.storage.onChanged.addListener((changes, area) => {
     if (area === "session" && ("inbox" in changes || "groupStatus" in changes)) void load();
@@ -52,6 +53,7 @@ function render(view: InboxView, settings: Settings): void {
   const { inbox } = view;
   byId("updated").textContent = inbox.fetchedAt ? msg("updatedAgo", relativeTime(inbox.fetchedAt)) : "";
   byId("skeleton").hidden = inbox.fetchedAt !== undefined || inbox.error !== undefined;
+  byId("reopen-group").hidden = !settings.liveGroup;
   renderBanners(view, settings);
 
   const sections = byId("sections");

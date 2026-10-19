@@ -10,6 +10,7 @@ export type Request =
   | { type: "open-pr"; url: string }
   | { type: "reopen-pr"; prId: string }
   | { type: "recreate-group" }
+  | { type: "reopen-group" }
   | { type: "adopt-renamed-group" }
   | { type: "rename-group-back" }
   | { type: "use-group"; windowId: number };
@@ -28,6 +29,7 @@ export function isRequest(value: unknown): value is Request {
     case "get-inbox":
     case "refresh":
     case "recreate-group":
+    case "reopen-group":
     case "adopt-renamed-group":
     case "rename-group-back":
       return true;

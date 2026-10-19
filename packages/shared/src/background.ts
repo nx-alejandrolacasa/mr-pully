@@ -236,8 +236,13 @@ async function openTabs(plan: SyncPlan, settings: Settings): Promise<{ managed: 
   const windowId = plan.openInWindowId;
   if (plan.open.length === 0 || windowId === undefined) return { managed, ...(group ? { group } : {}) };
 
+  // Firefox rejects an index inside the pinned tabs instead of clamping like Chrome.
+  const pinnedCount = (await chrome.tabs.query({ windowId, pinned: true })).length;
   const tabs = await Promise.all(
-    plan.open.map((item) => createTab(item.url, windowId, settings.openDiscarded).catch(() => undefined))
+    plan.open.map((item, i) => createTab(item.url, windowId, pinnedCount + i, settings.openDiscarded).catch((error: unknown) => {
+      console.error("[mr-pully] open tab", item.url, error);
+      return undefined;
+    }))
   );
   const created: number[] = [];
   plan.open.forEach((item, i) => {
@@ -257,14 +262,14 @@ async function openTabs(plan: SyncPlan, settings: Settings): Promise<{ managed: 
     group = { groupId, windowId };
     await chrome.tabGroups.update(groupId, { title: settings.groupName, color: settings.groupColor });
   }
-  await chrome.tabGroups.move(groupId, { index: 0 }).catch(() => {});
+  await chrome.tabGroups.move(groupId, { index: pinnedCount }).catch(() => {});
   return { managed, group };
 }
 
 // A discarded tab keeps the title and favicon it had, so it's discarded
 // once the page has its own title. Chrome may return it with a new id.
-async function createTab(url: string, windowId: number, discarded: boolean): Promise<chrome.tabs.Tab | undefined> {
-  const tab = await chrome.tabs.create({ url, windowId, active: false });
+async function createTab(url: string, windowId: number, index: number, discarded: boolean): Promise<chrome.tabs.Tab | undefined> {
+  const tab = await chrome.tabs.create({ url, windowId, index, active: false });
   if (!discarded || tab.id === undefined || !(await readyToDiscard(tab.id, url))) return tab;
   return (await chrome.tabs.discard(tab.id).catch(() => undefined)) ?? tab;
 }
@@ -442,6 +447,12 @@ async function handle(request: Request): Promise<InboxView | undefined> {
         await sync();
         return readView();
       });
+    case "reopen-group":
+      return serialized(async () => {
+        await Promise.all([writeLocal({ dismissed: {} }), writeSession({ groupStatus: { kind: "empty" } })]);
+        await sync();
+        return readView();
+      });
     case "adopt-renamed-group":
       return serialized(async () => {
         const [settings, { groupStatus }] = await Promise.all([loadSettings(), readSession()]);
@@ -503,6 +514,6 @@ let queue: Promise<unknown> = Promise.resolve();
 
 function serialized<T>(task: () => Promise<T>): Promise<T> {
   const run = queue.then(task, task);
-  queue = run.catch(() => undefined);
+  queue = run.catch((error: unknown) => console.error("[mr-pully]", error));
   return run;
 }

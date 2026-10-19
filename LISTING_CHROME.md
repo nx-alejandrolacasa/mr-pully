@@ -35,7 +35,7 @@ LIVE TAB GROUP
 
 • PRs waiting for your review (or your team's) open in the background, unloaded, in a tab group called "Pull requests".
 • When a PR stops needing you (you reviewed it, it was merged or closed), its tab closes after a short grace period. It waits while you're still looking at that tab.
-• Tabs you close stay closed until the PR gets new commits or a new review request for you. The popup lists them under "Hidden from group" with a Reopen button.
+• Tabs you close stay closed until the PR gets new commits or a new review request for you. The popup lists them under "Hidden from group" with a Reopen button; the clock icon in the popup header reopens them all at once.
 • Tabs in the group that aren't tracked PRs are left alone, as are PR tabs you opened yourself outside the group.
 • If the group is renamed, closed or duplicated, the badge shows "!" and the popup offers a one-click fix.
 
